@@ -73,19 +73,29 @@ public class RentalDaoImpl implements RentalDao{
 
     @Override
     public RentalEntity search(String id) throws Exception {
-        ResultSet rs = CrudUtil.executeQuery("SELECT * FROM rental WHERE rental_id=?", id);
+        System.out.println("Searching for ID: " + id); // DEBUG LINE
+        String sql = "SELECT * FROM rental WHERE rental_id = ?";
+        ResultSet rs = CrudUtil.executeQuery(sql, id);
+        
         if (rs.next()) {
+            System.out.println("Found in Database!"); // DEBUG LINE
             RentalEntity entity = new RentalEntity();
             entity.setRentalId(rs.getString("rental_id"));
             entity.setEquipmentId(rs.getString("equipment_id"));
             entity.setCustomerId(rs.getString("customer_id"));
             entity.setStartDate(rs.getDate("start_date"));
             entity.setEndDate(rs.getDate("end_date"));
-            entity.setRentalStatus(rs.getString("rental_status"));
             entity.setSecurityDeposit(rs.getDouble("security_deposit"));
-            // ... set other fields as needed for your views
+            entity.setRentalStatus(rs.getString("rental_status"));
+            
+            // Critical for Return Logic:
+            entity.setLateDays(rs.getInt("late_days"));
+            entity.setLateFeeAmount(rs.getDouble("late_fee_amount"));
+            entity.setDamageCharge(rs.getDouble("damage_charge"));
+            
             return entity;
         }
+        System.out.println("NOT Found in Database."); // DEBUG LINE
         return null;
     }
 

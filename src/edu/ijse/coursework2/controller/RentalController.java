@@ -24,4 +24,13 @@ public class RentalController {
     public ArrayList<RentalDto> getAllRentals() throws Exception {
         return rentalService.getAllRentals();
     }
+    
+    public String returnRental(RentalDto dto) throws Exception {
+        return rentalService.returnRental(dto);
+    }
+    
+    // You also need a way to search for a specific rental to load its details
+    public RentalDto searchRental(String rentalId) throws Exception {
+        return rentalService.searchRental(rentalId); 
+    }
 }

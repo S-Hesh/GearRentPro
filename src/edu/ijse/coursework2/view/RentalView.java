@@ -553,9 +553,12 @@ public class RentalView extends javax.swing.JFrame {
     
     private void loadRentalsTable() {
         try {
+            // FIX: Explicitly define the column names here
+            String[] columns = {"Rental ID", "Customer", "Equipment", "Status"};
+            DefaultTableModel dtm = new DefaultTableModel(columns, 0);
+            jTable1.setModel(dtm); // Apply this model to the table
+
             ArrayList<RentalDto> rentals = rentalController.getAllRentals();
-            DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
-            dtm.setRowCount(0);
             
             for (RentalDto r : rentals) {
                 dtm.addRow(new Object[]{

@@ -18,4 +18,8 @@ public interface RentalService extends SuperService {
     
     // Standard getters
     ArrayList<RentalDto> getAllRentals() throws Exception;
+    
+    String returnRental(RentalDto dto) throws Exception;
+    
+    RentalDto searchRental(String rentalId) throws Exception;
 }

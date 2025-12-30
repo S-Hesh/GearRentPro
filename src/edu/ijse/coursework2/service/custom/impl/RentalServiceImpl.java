@@ -116,4 +116,72 @@ public class RentalServiceImpl implements RentalService {
         }
         return dtos;
     }
+    
+    @Override
+    public String returnRental(RentalDto dto) throws Exception {
+        Connection connection = null;
+        try {
+            connection = DBConnection.getInstance().getConnection();
+            connection.setAutoCommit(false);
+
+            // 1. Prepare Entity with return details
+            RentalEntity entity = new RentalEntity();
+            entity.setRentalId(dto.getRentalId());
+            entity.setActualReturnDate(dto.getActualReturnDate());
+            entity.setLateDays(dto.getLateDays());
+            entity.setLateFeeAmount(dto.getLateFeeAmount());
+            entity.setDamageDescription(dto.getDamageDescription());
+            entity.setDamageCharge(dto.getDamageCharge());
+            entity.setTotalCharges(dto.getTotalCharges());
+            entity.setRefundAmount(dto.getRefundAmount());
+            entity.setRentalStatus("RETURNED"); // Close the rental
+
+            // 2. Update the Rental Table
+            boolean isRentalUpdated = rentalDao.update(entity);
+
+            if (isRentalUpdated) {
+                // 3. Determine new Equipment Status
+                // If there is damage, it might go to MAINTENANCE, otherwise AVAILABLE [cite: 197]
+                String newStatus = (dto.getDamageCharge() > 0) ? "MAINTENANCE" : "AVAILABLE";
+
+                // 4. Update Equipment Table
+                boolean isEquipmentUpdated = equipmentDao.updateStatus(dto.getEquipmentId(), newStatus);
+
+                if (isEquipmentUpdated) {
+                    connection.commit();
+                    return "Return processed successfully! Status: " + newStatus;
+                } else {
+                    connection.rollback();
+                    return "Failed to update equipment status.";
+                }
+            } else {
+                connection.rollback();
+                return "Failed to update rental record.";
+            }
+
+        } catch (Exception e) {
+            if (connection != null) connection.rollback();
+            e.printStackTrace();
+            return "Error: " + e.getMessage();
+        } finally {
+            if (connection != null) connection.setAutoCommit(true);
+        }
+    }
+    
+    public RentalDto searchRental(String rentalId) throws Exception {
+        RentalEntity entity = rentalDao.search(rentalId);
+        if (entity != null) {
+            RentalDto dto = new RentalDto();
+            dto.setRentalId(entity.getRentalId());
+            dto.setEquipmentId(entity.getEquipmentId());
+            dto.setCustomerId(entity.getCustomerId());
+            dto.setStartDate(entity.getStartDate());
+            dto.setEndDate(entity.getEndDate());
+            dto.setSecurityDeposit(entity.getSecurityDeposit());
+            dto.setRentalStatus(entity.getRentalStatus());
+            // Add any other fields you need for the UI
+            return dto;
+        }
+        return null;
+    }
 }
