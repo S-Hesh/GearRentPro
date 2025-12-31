@@ -234,7 +234,7 @@ public class DashboardView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReportsActionPerformed
 
     private void jMenuItemBranchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBranchActionPerformed
-        // TODO add your handling code here:
+        new BranchView().setVisible(true);
     }//GEN-LAST:event_jMenuItemBranchActionPerformed
 
     private void jMenuItemUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemUsersActionPerformed
