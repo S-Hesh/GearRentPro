@@ -4,7 +4,11 @@
  */
 package edu.ijse.coursework2.view;
 
+import edu.ijse.coursework2.controller.ReportController;
+import edu.ijse.coursework2.dto.RentalDto;
 import edu.ijse.coursework2.dto.UserDto;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,8 +16,10 @@ import edu.ijse.coursework2.dto.UserDto;
  */
 public class ReportsView extends javax.swing.JFrame {
     
-    private  UserDto currentUser;
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReportsView.class.getName());
+    private UserDto currentUser;
+    private final ReportController controller = new ReportController();
+    
+    //private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReportsView.class.getName());
 
     /**
      * Creates new form ReportsView
@@ -22,6 +28,7 @@ public class ReportsView extends javax.swing.JFrame {
     public ReportsView(UserDto user) {
         this.currentUser = user;
         initComponents();
+        loadActiveRentals();
     }
 
     /**
@@ -33,25 +40,163 @@ public class ReportsView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        btnActiveRental = new javax.swing.JButton();
+        btnOverdueRental = new javax.swing.JButton();
+        btnIncomeSummary = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        lblShowResults = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        btnActiveRental.setText("Active Rentals");
+        btnActiveRental.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActiveRentalActionPerformed(evt);
+            }
+        });
+
+        btnOverdueRental.setText("Overdue Rentals");
+        btnOverdueRental.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOverdueRentalActionPerformed(evt);
+            }
+        });
+
+        btnIncomeSummary.setText("Income Summary");
+        btnIncomeSummary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIncomeSummaryActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Reports Tab");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblShowResults, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(73, 73, 73))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnActiveRental, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95)
+                .addComponent(btnOverdueRental)
+                .addGap(103, 103, 103)
+                .addComponent(btnIncomeSummary)
+                .addGap(132, 132, 132))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnActiveRental)
+                    .addComponent(btnOverdueRental)
+                    .addComponent(btnIncomeSummary))
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblShowResults, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnActiveRentalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActiveRentalActionPerformed
+        loadActiveRentals();
+    }//GEN-LAST:event_btnActiveRentalActionPerformed
+
+    private void btnOverdueRentalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOverdueRentalActionPerformed
+        loadOverdueRentals();
+    }//GEN-LAST:event_btnOverdueRentalActionPerformed
+
+    private void btnIncomeSummaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncomeSummaryActionPerformed
+        loadIncome();
+    }//GEN-LAST:event_btnIncomeSummaryActionPerformed
+    private void loadActiveRentals() {
+        try {
+            ArrayList<RentalDto> list = controller.getActiveRentals();
+            loadTable(list);
+            lblShowResults.setText(""); // Clear income text
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadOverdueRentals() {
+        try {
+            ArrayList<RentalDto> list = controller.getOverdueRentals();
+            loadTable(list);
+            lblShowResults.setText(""); 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadIncome() {
+        try {
+            double income = controller.getTotalIncome();
+            lblShowResults.setText("Total Income: " + String.format("%.2f", income));
+            // Optional: clear table or show breakdown
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadTable(ArrayList<RentalDto> list) {
+        String[] cols = {"Rental ID", "Customer", "Equipment", "Due Date", "Status"};
+        DefaultTableModel dtm = new DefaultTableModel(cols, 0);
+        jTable1.setModel(dtm);
+        
+        for (RentalDto r : list) {
+            dtm.addRow(new Object[]{
+                r.getRentalId(),
+                r.getCustomerId(),
+                r.getEquipmentId(),
+                r.getEndDate(),
+                r.getRentalStatus()
+            });
+        }
+    }
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActiveRental;
+    private javax.swing.JButton btnIncomeSummary;
+    private javax.swing.JButton btnOverdueRental;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblShowResults;
     // End of variables declaration//GEN-END:variables
 }
+
+

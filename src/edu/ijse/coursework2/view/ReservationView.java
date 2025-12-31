@@ -4,7 +4,16 @@
  */
 package edu.ijse.coursework2.view;
 
+import edu.ijse.coursework2.controller.CustomerController;
+import edu.ijse.coursework2.controller.EquipmentController;
+import edu.ijse.coursework2.controller.ReservationController;
+import edu.ijse.coursework2.dto.CustomerDto;
+import edu.ijse.coursework2.dto.EquipmentDto;
+import edu.ijse.coursework2.dto.ReservationDto;
 import edu.ijse.coursework2.dto.UserDto;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,6 +22,16 @@ import edu.ijse.coursework2.dto.UserDto;
 public class ReservationView extends javax.swing.JFrame {
     
     private  UserDto currentUser;
+    
+    // Controllers
+    private final CustomerController customerController = new CustomerController();
+    private final EquipmentController equipmentController = new EquipmentController();
+    private final ReservationController reservationController = new ReservationController();
+    
+    // State
+    private CustomerDto selectedCustomer;
+    private EquipmentDto selectedEquipment;
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ReservationView.class.getName());
 
@@ -34,21 +53,211 @@ public class ReservationView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtCustomerId = new javax.swing.JTextField();
+        btnSearchCustomer = new javax.swing.JButton();
+        lblCustomerDetails = new javax.swing.JLabel();
+        lblEquipmentDetails = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtEquipmentId = new javax.swing.JTextField();
+        btnSearchEquipment = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtStartDate = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        txtEndDate = new javax.swing.JTextField();
+        btnCheckAvailability = new javax.swing.JButton();
+        btnPlaceReservation = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("New Reservation");
+
+        jLabel2.setText("Customer ID");
+
+        btnSearchCustomer.setText("Search");
+        btnSearchCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchCustomerActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Equipment ID");
+
+        btnSearchEquipment.setText("Search");
+        btnSearchEquipment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchEquipmentActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Start Date");
+
+        jLabel5.setText("End Date");
+
+        btnCheckAvailability.setText("Check Availability");
+        btnCheckAvailability.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckAvailabilityActionPerformed(evt);
+            }
+        });
+
+        btnPlaceReservation.setText("Place Reservation");
+        btnPlaceReservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlaceReservationActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnSearchCustomer)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblCustomerDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtEquipmentId, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnSearchEquipment)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lblEquipmentDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(266, 266, 266)
+                                    .addComponent(btnCheckAvailability)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnPlaceReservation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCustomerId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchCustomer)
+                    .addComponent(lblCustomerDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEquipmentId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchEquipment)
+                    .addComponent(lblEquipmentDetails, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtStartDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCheckAvailability)
+                    .addComponent(btnPlaceReservation, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCustomerActionPerformed
+        try {
+            selectedCustomer = customerController.searchCustomer(txtCustomerId.getText().trim());
+            if (selectedCustomer != null) {
+                lblCustomerDetails.setText(selectedCustomer.getFullName());
+            } else {
+                lblCustomerDetails.setText("Not Found");
+                selectedCustomer = null;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error searching customer");
+        }
+    }//GEN-LAST:event_btnSearchCustomerActionPerformed
+
+    private void btnSearchEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchEquipmentActionPerformed
+        try {
+            selectedEquipment = equipmentController.searchEquipment(txtEquipmentId.getText().trim());
+            if (selectedEquipment != null) {
+                lblEquipmentDetails.setText(selectedEquipment.getBrand() + " " + selectedEquipment.getModel());
+            } else {
+                lblEquipmentDetails.setText("Not Found");
+                selectedEquipment = null;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error searching equipment");
+        }
+    }//GEN-LAST:event_btnSearchEquipmentActionPerformed
+
+    private void btnCheckAvailabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckAvailabilityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCheckAvailabilityActionPerformed
+
+    private void btnPlaceReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlaceReservationActionPerformed
+        if (selectedCustomer == null || selectedEquipment == null) {
+            JOptionPane.showMessageDialog(this, "Please select Customer and Equipment first.");
+            return;
+        }
+
+        try {
+            // 1. Create DTO
+            ReservationDto dto = new ReservationDto();
+            dto.setReservationId("RS" + (System.currentTimeMillis() / 1000));
+            dto.setCustomerId(selectedCustomer.getCustomerId());
+            dto.setEquipmentId(selectedEquipment.getEquipmentId());
+            // Handle branch logic (Default to B001 or User's branch)
+            dto.setBranchId(currentUser != null && currentUser.getBranchId() != null ? currentUser.getBranchId() : "B001");
+            
+            // 2. Parse Dates
+            dto.setStartDate(sdf.parse(txtStartDate.getText().trim()));
+            dto.setEndDate(sdf.parse(txtEndDate.getText().trim()));
+            dto.setStatus("PENDING");
+            dto.setCreatedBy(currentUser != null ? currentUser.getUserId() : "ADMIN");
+
+            // 3. Call Controller (This checks overlaps inside the Service)
+            String result = reservationController.placeReservation(dto);
+            
+            JOptionPane.showMessageDialog(this, result);
+            
+            if (result.contains("Success")) {
+                this.dispose(); // Close window on success
+            }
+
+        } catch (java.text.ParseException pe) {
+            JOptionPane.showMessageDialog(this, "Invalid Date Format. Please use yyyy-MM-dd");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnPlaceReservationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -56,5 +265,20 @@ public class ReservationView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCheckAvailability;
+    private javax.swing.JButton btnPlaceReservation;
+    private javax.swing.JButton btnSearchCustomer;
+    private javax.swing.JButton btnSearchEquipment;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel lblCustomerDetails;
+    private javax.swing.JLabel lblEquipmentDetails;
+    private javax.swing.JTextField txtCustomerId;
+    private javax.swing.JTextField txtEndDate;
+    private javax.swing.JTextField txtEquipmentId;
+    private javax.swing.JTextField txtStartDate;
     // End of variables declaration//GEN-END:variables
 }

@@ -44,27 +44,17 @@ public class DashboardView extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         btnCustomerManagement = new javax.swing.JButton();
-        btnOverdueRentals = new javax.swing.JButton();
         btnReports = new javax.swing.JButton();
         btnEquipmentManagement = new javax.swing.JButton();
         btnReturnSettlement = new javax.swing.JButton();
         btnRentalManagement = new javax.swing.JButton();
         btnReservationManagement = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuMaster = new javax.swing.JMenu();
         jMenuItemBranch = new javax.swing.JMenuItem();
         jMenuItemUsers = new javax.swing.JMenuItem();
         jMenuItemSettings = new javax.swing.JMenuItem();
-        jMenuOperations = new javax.swing.JMenu();
-        jMenuItemCustomerM = new javax.swing.JMenuItem();
-        jMenuItemEquipmentM = new javax.swing.JMenuItem();
-        jMenuItemReservationM = new javax.swing.JMenuItem();
-        jMenuItemRentalM = new javax.swing.JMenuItem();
-        jMenuItemReturnSettlement = new javax.swing.JMenuItem();
-        jMenuItemOverdueRental = new javax.swing.JMenuItem();
-        jMenuReports = new javax.swing.JMenu();
-        jMenuAccount = new javax.swing.JMenu();
-        jMenuItemLogout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,13 +78,6 @@ public class DashboardView extends javax.swing.JFrame {
         btnCustomerManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCustomerManagementActionPerformed(evt);
-            }
-        });
-
-        btnOverdueRentals.setText("Overdue rentals");
-        btnOverdueRentals.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOverdueRentalsActionPerformed(evt);
             }
         });
 
@@ -133,6 +116,10 @@ public class DashboardView extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Dashboard");
+
         jMenuMaster.setText("Master");
 
         jMenuItemBranch.setText("Branch");
@@ -161,38 +148,6 @@ public class DashboardView extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuMaster);
 
-        jMenuOperations.setText("Operations");
-
-        jMenuItemCustomerM.setText("Customer management");
-        jMenuOperations.add(jMenuItemCustomerM);
-
-        jMenuItemEquipmentM.setText("Equipment management");
-        jMenuOperations.add(jMenuItemEquipmentM);
-
-        jMenuItemReservationM.setText("Reservation management");
-        jMenuOperations.add(jMenuItemReservationM);
-
-        jMenuItemRentalM.setText("Rental management");
-        jMenuOperations.add(jMenuItemRentalM);
-
-        jMenuItemReturnSettlement.setText("Return/Settlement");
-        jMenuOperations.add(jMenuItemReturnSettlement);
-
-        jMenuItemOverdueRental.setText(" Overdue rental");
-        jMenuOperations.add(jMenuItemOverdueRental);
-
-        jMenuBar1.add(jMenuOperations);
-
-        jMenuReports.setText("Reports");
-        jMenuBar1.add(jMenuReports);
-
-        jMenuAccount.setText("Account");
-
-        jMenuItemLogout.setText("Log out");
-        jMenuAccount.add(jMenuItemLogout);
-
-        jMenuBar1.add(jMenuAccount);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -202,36 +157,39 @@ public class DashboardView extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(25, 25, 25)
-                            .addComponent(btnRentalManagement)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnReturnSettlement)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnOverdueRentals)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnReports))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(btnCustomerManagement)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnEquipmentManagement)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnReservationManagement)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnRentalManagement)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnReturnSettlement))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
-                        .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(24, 24, 24)
+                        .addComponent(btnCustomerManagement)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEquipmentManagement)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnReservationManagement))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(btnReports)))
                 .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(164, 164, 164))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnLogout)
-                .addGap(81, 81, 81)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCustomerManagement)
                     .addComponent(btnEquipmentManagement)
@@ -239,7 +197,6 @@ public class DashboardView extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReturnSettlement)
-                    .addComponent(btnOverdueRentals)
                     .addComponent(btnReports)
                     .addComponent(btnRentalManagement))
                 .addContainerGap(103, Short.MAX_VALUE))
@@ -272,10 +229,6 @@ public class DashboardView extends javax.swing.JFrame {
         rentalView();
     }//GEN-LAST:event_btnRentalManagementActionPerformed
 
-    private void btnOverdueRentalsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOverdueRentalsActionPerformed
-        overdueView();
-    }//GEN-LAST:event_btnOverdueRentalsActionPerformed
-
     private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
         reportsView();
     }//GEN-LAST:event_btnReportsActionPerformed
@@ -285,7 +238,7 @@ public class DashboardView extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemBranchActionPerformed
 
     private void jMenuItemUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemUsersActionPerformed
-        // TODO add your handling code here:
+        new UserView().setVisible(true);
     }//GEN-LAST:event_jMenuItemUsersActionPerformed
 
     private void jMenuItemSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSettingsActionPerformed
@@ -304,27 +257,17 @@ public class DashboardView extends javax.swing.JFrame {
     private javax.swing.JButton btnCustomerManagement;
     private javax.swing.JButton btnEquipmentManagement;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JButton btnOverdueRentals;
     private javax.swing.JButton btnRentalManagement;
     private javax.swing.JButton btnReports;
     private javax.swing.JButton btnReservationManagement;
     private javax.swing.JButton btnReturnSettlement;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenuAccount;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemBranch;
-    private javax.swing.JMenuItem jMenuItemCustomerM;
-    private javax.swing.JMenuItem jMenuItemEquipmentM;
-    private javax.swing.JMenuItem jMenuItemLogout;
-    private javax.swing.JMenuItem jMenuItemOverdueRental;
-    private javax.swing.JMenuItem jMenuItemRentalM;
-    private javax.swing.JMenuItem jMenuItemReservationM;
-    private javax.swing.JMenuItem jMenuItemReturnSettlement;
     private javax.swing.JMenuItem jMenuItemSettings;
     private javax.swing.JMenuItem jMenuItemUsers;
     private javax.swing.JMenu jMenuMaster;
-    private javax.swing.JMenu jMenuOperations;
-    private javax.swing.JMenu jMenuReports;
     // End of variables declaration//GEN-END:variables
 
     private void applyAccessControl() {
@@ -346,7 +289,6 @@ public class DashboardView extends javax.swing.JFrame {
         btnReservationManagement.setEnabled(enabled);
         btnRentalManagement.setEnabled(enabled);
         btnReturnSettlement.setEnabled(enabled);
-        btnOverdueRentals.setEnabled(enabled);
         btnReports.setEnabled(enabled);
 
         jMenuItemBranch.setEnabled(enabled);
@@ -360,7 +302,6 @@ public class DashboardView extends javax.swing.JFrame {
         btnReservationManagement.setEnabled(enabled);
         btnRentalManagement.setEnabled(enabled);
         btnReturnSettlement.setEnabled(enabled);
-        btnOverdueRentals.setEnabled(enabled);
         btnReports.setEnabled(enabled);
 
         jMenuItemBranch.setEnabled(false); // Hide for branch managers
@@ -374,7 +315,6 @@ public class DashboardView extends javax.swing.JFrame {
         btnReservationManagement.setEnabled(enabled);
         btnRentalManagement.setEnabled(enabled);
         btnReturnSettlement.setEnabled(enabled);
-        btnOverdueRentals.setEnabled(enabled);
         btnReports.setEnabled(false); // Staff shouldn't have access to reports
 
         jMenuItemBranch.setEnabled(false); // Hide for staff
@@ -413,9 +353,6 @@ public class DashboardView extends javax.swing.JFrame {
         new ReturnSettlementView(currentUser).setVisible(true);
     }
 
-    private void overdueView() {
-        new OverdueView(currentUser).setVisible(true);
-    }
 
     private void reportsView() {
         new ReportsView(currentUser).setVisible(true);

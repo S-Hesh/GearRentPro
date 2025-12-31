@@ -10,6 +10,7 @@ import edu.ijse.coursework2.dto.UserDto;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import edu.ijse.coursework2.util.ValidationUtil;
 
 /**
  *
@@ -60,7 +61,7 @@ public class CustomerView extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtNIC = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -169,11 +170,12 @@ public class CustomerView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCustomerId)
-                    .addComponent(txtContactNo)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtContactNo)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,6 +277,17 @@ public class CustomerView extends javax.swing.JFrame {
     }
 
     private void saveCustomer() {
+        // --- VALIDATION START ---
+        if (!ValidationUtil.validateEmpty(txtCustomerId, "Customer ID")) return;
+        if (!ValidationUtil.validateEmpty(txtFullName, "Full Name")) return;
+        if (!ValidationUtil.validateEmpty(txtNIC, "NIC/Passport")) return;
+        if (!ValidationUtil.validateEmpty(txtContactNo, "Contact No")) return;
+        
+        // Advanced Validation
+        if (!ValidationUtil.validatePhone(txtContactNo)) return;
+        if (!ValidationUtil.validateEmail(txtEmail)) return; // Email is optional, but if typed, must be valid
+        // --- VALIDATION END ---
+        
         String customerId = txtCustomerId.getText().trim();
         String fullName = txtFullName.getText().trim();
         String NicPassport = txtNIC.getText().trim();
@@ -303,6 +316,14 @@ public class CustomerView extends javax.swing.JFrame {
     }
 
     private void updateCustomer() {
+        
+        // --- VALIDATION START ---
+        if (!ValidationUtil.validateEmpty(txtCustomerId, "Customer ID")) return;
+        if (!ValidationUtil.validateEmpty(txtFullName, "Full Name")) return;
+        if (!ValidationUtil.validatePhone(txtContactNo)) return;
+        if (!ValidationUtil.validateEmail(txtEmail)) return;
+        // --- VALIDATION END ---
+        
         CustomerDto dto = new CustomerDto(
             txtCustomerId.getText(),
             txtFullName.getText(),

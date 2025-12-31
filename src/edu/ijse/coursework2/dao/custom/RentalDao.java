@@ -13,4 +13,6 @@ import edu.ijse.coursework2.entity.RentalEntity;
  */
 public interface RentalDao extends CrudDao<RentalEntity, String> {
     
+    boolean checkOverlap(String equipmentId, java.util.Date startDate, java.util.Date endDate) throws Exception;
+    
 }

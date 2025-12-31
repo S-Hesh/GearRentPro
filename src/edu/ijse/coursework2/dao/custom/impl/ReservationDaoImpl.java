@@ -49,4 +49,20 @@ public class ReservationDaoImpl implements ReservationDao {
     public ArrayList<ReservationEntity> getAll() throws Exception {
         return new ArrayList<>(); // Implement if needed
     }
+    
+    @Override
+    public boolean checkOverlap(String equipmentId, java.util.Date startDate, java.util.Date endDate) throws Exception {
+        String sql = "SELECT COUNT(*) FROM reservation WHERE equipment_id = ? "
+                   + "AND status != 'CANCELLED' " // Ignore cancelled ones
+                   + "AND (? < end_date AND ? > start_date)";
+        
+        java.sql.Date sDate = new java.sql.Date(startDate.getTime());
+        java.sql.Date eDate = new java.sql.Date(endDate.getTime());
+        
+        java.sql.ResultSet rs = CrudUtil.executeQuery(sql, equipmentId, sDate, eDate);
+        if (rs.next()) {
+            return rs.getInt(1) > 0; // Returns true if count > 0 (Overlap found)
+        }
+        return false;
+    }
 }

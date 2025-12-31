@@ -6,6 +6,8 @@ package edu.ijse.coursework2.service;
 
 import edu.ijse.coursework2.service.custom.impl.AuthServiceImpl;
 import edu.ijse.coursework2.service.custom.impl.RentalServiceImpl;
+import edu.ijse.coursework2.service.custom.impl.ReservationServiceImpl;
+import edu.ijse.coursework2.service.custom.impl.UserServiceImpl;
 
 /**
  *
@@ -26,14 +28,18 @@ public class ServiceFactory {
         switch (type) {
             case AUTH:
                 return new AuthServiceImpl();
-        case RENTAL:
+            case RENTAL:
                 return new RentalServiceImpl();
+            case RESERVATION:
+                return new ReservationServiceImpl();
+            case USER:
+                return new UserServiceImpl();
             default:
                 throw new AssertionError("No Service for type: " + type);
         }
     }
 
     public enum ServiceType {
-        AUTH , RENTAL
+        AUTH , RENTAL , RESERVATION ,USER
     }
 }

@@ -7,6 +7,7 @@ package edu.ijse.coursework2.dao;
 import edu.ijse.coursework2.dao.custom.impl.CustomerDaoImpl;
 import edu.ijse.coursework2.dao.custom.impl.EquipmentDaoImpl;
 import edu.ijse.coursework2.dao.custom.impl.RentalDaoImpl;
+import edu.ijse.coursework2.dao.custom.impl.ReportDaoImpl;
 import edu.ijse.coursework2.dao.custom.impl.ReservationDaoImpl;
 import edu.ijse.coursework2.dao.custom.impl.UserDaoImpl;
 //import edu.ijse.coursework2.dao.custom.ItemDaoImpl;
@@ -37,6 +38,8 @@ public class DaoFactory {
                 return new ReservationDaoImpl();
             case RENTAL:
                 return new RentalDaoImpl();
+            case REPORT:
+                return new ReportDaoImpl();
                 
             //case ITEM:
             //   return new ItemDaoImpl();
@@ -47,7 +50,7 @@ public class DaoFactory {
     }
 
     public enum DaoTypes {
-        USER , CUSTOMER , EQUIPMENT , RESERVATION, RENTAL
+        USER , CUSTOMER , EQUIPMENT , RESERVATION , RENTAL , REPORT
     }
 }
 

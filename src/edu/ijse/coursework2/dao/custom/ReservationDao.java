@@ -13,5 +13,7 @@ import edu.ijse.coursework2.entity.ReservationEntity;
  */
 public interface ReservationDao extends CrudDao<ReservationEntity, String>{
     
+    boolean checkOverlap(String equipmentId, java.util.Date startDate, java.util.Date endDate) throws Exception;
+    
 }
     

@@ -114,4 +114,20 @@ public class RentalDaoImpl implements RentalDao{
         }
         return list;
     }
+    
+    @Override
+    public boolean checkOverlap(String equipmentId, java.util.Date startDate, java.util.Date endDate) throws Exception {
+        String sql = "SELECT COUNT(*) FROM rental WHERE equipment_id = ? "
+                   + "AND rental_status IN ('ACTIVE', 'OVERDUE') " // Only active rentals block dates
+                   + "AND (? < end_date AND ? > start_date)";
+        
+        java.sql.Date sDate = new java.sql.Date(startDate.getTime());
+        java.sql.Date eDate = new java.sql.Date(endDate.getTime());
+        
+        java.sql.ResultSet rs = CrudUtil.executeQuery(sql, equipmentId, sDate, eDate);
+        if (rs.next()) {
+            return rs.getInt(1) > 0; // Returns true if count > 0 (Overlap found)
+        }
+        return false;
+    }
 }

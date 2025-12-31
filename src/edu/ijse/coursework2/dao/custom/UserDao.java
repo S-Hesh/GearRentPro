@@ -4,14 +4,14 @@
  */
 package edu.ijse.coursework2.dao.custom;
 
-import edu.ijse.coursework2.dao.SuperDao;
+import edu.ijse.coursework2.dao.CrudDao;
 import edu.ijse.coursework2.entity.UserEntity;
 
 /**
  *
  * @author USER
  */
-public interface UserDao extends SuperDao {
+public interface UserDao extends CrudDao<UserEntity, String> {
+    // Keep this for Login
     UserEntity findByUsername(String username) throws Exception;
-    
 }

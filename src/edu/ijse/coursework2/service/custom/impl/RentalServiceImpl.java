@@ -11,6 +11,7 @@ import edu.ijse.coursework2.db.DBConnection;
 import edu.ijse.coursework2.dto.RentalDto;
 import edu.ijse.coursework2.entity.RentalEntity;
 import edu.ijse.coursework2.service.custom.RentalService;
+import edu.ijse.coursework2.dao.custom.ReservationDao;
 import java.util.ArrayList;
 import java.sql.Connection;
 
@@ -22,6 +23,8 @@ public class RentalServiceImpl implements RentalService {
 
     private final RentalDao rentalDao = (RentalDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.RENTAL);
     private final EquipmentDao equipmentDao = (EquipmentDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.EQUIPMENT);
+    
+    private final ReservationDao reservationDao = (ReservationDao) DaoFactory.getInstance().getDao(DaoFactory.DaoTypes.RESERVATION);
 
     @Override
     public String placeRental(RentalDto dto) throws Exception {
@@ -31,6 +34,13 @@ public class RentalServiceImpl implements RentalService {
             // 1. Get the connection and disable auto-commit (Start Transaction)
             connection = DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
+            
+            boolean isReserved = reservationDao.checkOverlap(dto.getEquipmentId(), dto.getStartDate(), dto.getEndDate());
+            
+            if (isReserved && (dto.getReservationId() == null || dto.getReservationId().isEmpty())) {
+                connection.rollback();
+                return "Unavailable: Item is currently RESERVED for these dates.";
+            }
 
             // 2. Check if equipment is actually available (Double check safety)
             // Note: In a real app, you might want a specific 'search' check here.

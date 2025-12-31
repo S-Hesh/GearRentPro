@@ -68,7 +68,7 @@ public class EquipmentView extends javax.swing.JFrame {
         txtModel = new javax.swing.JTextField();
         txtBrand = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel8.setText("Branch ID");
 
