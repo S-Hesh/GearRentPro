@@ -29,52 +29,11 @@ This is a comprehensive Java Swing application designed to manage equipment rent
     CREATE DATABASE coursework_db;
     USE coursework_db;
     ```
-    *(Note: Check your `DBConnection.java` file to ensure the database name matches `coursework_db`)*
+    *(Note: Check your `DBConnection.java` file to ensure the database name matches `gearretnpro`)*
 
-3.  **Run the Schema Scripts:**
-    Execute the following SQL scripts to create the necessary tables:
-
-    ```sql
-    -- Create Branch Table
-    CREATE TABLE branch (
-      branch_id VARCHAR(10) PRIMARY KEY,
-      name VARCHAR(100) NOT NULL,
-      address VARCHAR(255) NOT NULL,
-      contact_no VARCHAR(20) NOT NULL
-    ) ENGINE=InnoDB;
-
-    -- Create System User Table
-    CREATE TABLE system_user (
-      user_id VARCHAR(10) PRIMARY KEY,
-      full_name VARCHAR(120) NOT NULL,
-      username VARCHAR(60) NOT NULL,
-      password_hash VARCHAR(255) NOT NULL,
-      role VARCHAR(20) NOT NULL,
-      branch_id VARCHAR(10) NULL,
-      is_active TINYINT(1) NOT NULL DEFAULT 1,
-      UNIQUE KEY uq_user_username (username),
-      CONSTRAINT fk_user_branch FOREIGN KEY (branch_id) REFERENCES branch(branch_id)
-    ) ENGINE=InnoDB;
-    ```
-
-4.  **Insert Default Data:**
-    Run this script to populate the system with initial branches and users:
-
-    ```sql
-    -- Insert Branches
-    INSERT INTO branch VALUES 
-    ('B001', 'Colombo Main', '123 Galle Rd, Colombo', '0112345678'),
-    ('B002', 'Galle City', '45 Matara Rd, Galle', '0912345678');
-
-    -- Insert Users (Passwords are hashed)
-    INSERT INTO system_user VALUES
-    ('U001', 'System Admin', 'admin', SHA2('admin123', 256), 'ADMIN', NULL, 1),
-    ('U002', 'Colombo Manager', 'cmgr', SHA2('cmgr123', 256), 'BRANCH_MANAGER', 'B001', 1),
-    ('U003', 'Colombo Staff', 'cstaff', SHA2('cstaff123', 256), 'STAFF', 'B001', 1);
-    ```
-
----
-
+3.  **Run the Schema Scripts in the coursework zip file:**    
+4.  **Insert Data from the sample data script in coursework zip file**
+   
 ##  How to Run the Application
 
 1.  **Open in NetBeans:**
@@ -85,8 +44,7 @@ This is a comprehensive Java Swing application designed to manage equipment rent
     * Ensure the `URL`, `USER`, and `PASSWORD` match your local MySQL configuration.
 3.  **Build Project:**
     * Right-click the project -> `Clean and Build`.
-4.  **Run:**
-    * Right-click `LoginView.java` -> `Run File` (or press `Shift + F6`).
+4.  **Run:*
 
 ---
 
@@ -99,5 +57,3 @@ Use the following credentials to test the different access levels:
 | **System Admin** | `admin` | `admin123` | **Full Access** (Users, Branches, Reports, Settings) |
 | **Branch Manager** | `cmgr` | `cmgr123` | **Branch Operations** (Rentals, Inventory, Customers) |
 | **Staff Member** | `cstaff` | `cstaff123` | **Limited Access** (Rentals, Returns only) |
-
-> **Note:** For security, you can change these passwords using the "Settings" -> "Change Password" feature in the dashboard.
